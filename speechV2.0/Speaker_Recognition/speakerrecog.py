@@ -1,3 +1,4 @@
+"""说话人识别"""
 import pyaudio
 import wave
 import os
@@ -6,79 +7,101 @@ import numpy as np
 from scipy.io.wavfile import read
 from .mfcc_coeff import extract_features
 import warnings
-import time
 
 warnings.filterwarnings("ignore")
 
 
-def speakerRecog():
-    # Recording Phase
-    CHUNK = 1024
-    FORMAT = pyaudio.paInt16
-    CHANNELS = 2
-    RATE = 44100
-    RECORD_SECONDS = 5
-    WAVE_OUTPUT_FILENAME = ".\\Speaker_Recognition\\samples\\test.wav"
+def record_audio(output_filename, record_seconds=5, chunk=1024, format=pyaudio.paInt16, channels=2, rate=44100):
+    """
+    录制音频并保存为WAV文件。
 
+    参数：
+    - output_filename: 输出文件名
+    - record_seconds: 录制时间（秒）
+    - chunk: 音频块大小
+    - format: 音频格式
+    - channels: 通道数
+    - rate: 采样率
+    """
     p = pyaudio.PyAudio()
-
-    stream = p.open(format=FORMAT,
-                    channels=CHANNELS,
-                    rate=RATE,
-                    input=True,
-                    frames_per_buffer=CHUNK)
-
-    print("* recording")
-
+    stream = p.open(format=format, channels=channels, rate=rate, input=True, frames_per_buffer=chunk)
+    print("* 录音中")
     frames = []
 
-    for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
-        data = stream.read(CHUNK)
+    for _ in range(0, int(rate / chunk * record_seconds)):
+        data = stream.read(chunk)
         frames.append(data)
 
-    print("* done recording")
+    print("* 录音完成")
 
     stream.stop_stream()
     stream.close()
     p.terminate()
 
-    wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
-    wf.setnchannels(CHANNELS)
-    wf.setsampwidth(p.get_sample_size(FORMAT))
-    wf.setframerate(RATE)
-    wf.writeframes(b''.join(frames))
-    wf.close()
+    with wave.open(output_filename, 'wb') as wf:
+        wf.setnchannels(channels)
+        wf.setsampwidth(p.get_sample_size(format))
+        wf.setframerate(rate)
+        wf.writeframes(b''.join(frames))
 
-    # Now the recording is stored in test.wav
-    # We will now test the recording with the gmm models
 
-    source = ".\\Speaker_Recognition\\samples\\"
-    modelpath = ".\\Speaker_Recognition\\gmm_models\\"
-    test_file = ".\\Speaker_Recognition\\testing_sample_list.txt"
-    file_paths = open(test_file, 'r')
+def load_models(modelpath):
+    """
+    加载GMM模型。
 
+    参数：
+    - modelpath: 模型路径
+
+    返回：
+    - models: 加载的模型
+    - speakers: 模型对应的说话人
+    """
     gmm_files = [os.path.join(modelpath, fname) for fname in os.listdir(modelpath) if fname.endswith(".gmm")]
-    print(gmm_files)
-
-    # Load the Gaussian gender Models
     models = [cPickle.load(open(fname, 'rb')) for fname in gmm_files]
-    speakers = [fname.split("\\")[-1].split(".gmm")[0] for fname in gmm_files]
+    speakers = [os.path.splitext(os.path.basename(fname))[0] for fname in gmm_files]
+    return models, speakers
 
-    # Read the test directory and get the list of test audio files 
-    for path in file_paths:
-        path = path.strip()
-        print(path)
-        sr, audio = read(source + path)
-        vector = extract_features(audio, sr)
 
-        log_likelihood = np.zeros(len(models))
+def recognize_speaker(audio_path, models, speakers):
+    """
+    识别说话人。
 
-    for i in range(len(models)):
-        gmm = models[i]  # checking with each model one by one
+    参数：
+    - audio_path: 音频文件路径
+    - models: 已加载的模型
+    - speakers: 模型对应的说话人
+
+    返回：
+    - recognized_speaker: 识别出的说话人
+    """
+    sr, audio = read(audio_path)
+    vector = extract_features(audio, sr)
+
+    log_likelihood = np.zeros(len(models))
+
+    for i, gmm in enumerate(models):
         scores = np.array(gmm.score(vector))
         log_likelihood[i] = scores.sum()
 
     winner = np.argmax(log_likelihood)
-    print("\tdetected as - ", speakers[winner])
     return speakers[winner]
-    time.sleep(1.0)
+
+
+def speakerRecog():
+    """
+    进行说话人识别并返回识别结果。
+    """
+    output_filename = ".\\Speaker_Recognition\\samples\\test.wav"
+    modelpath = ".\\Speaker_Recognition\\gmm_models\\"
+
+    # 录制音频
+    record_audio(output_filename)
+
+    # 加载模型
+    models, speakers = load_models(modelpath)
+
+    # 识别说话人
+    recognized_speaker = recognize_speaker(output_filename, models, speakers)
+    print("识别为 - ", recognized_speaker)
+
+    return recognized_speaker
