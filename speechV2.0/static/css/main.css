@@ -2730,6 +2730,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .feature-area {
   padding: 10px 0 120px;
+  background:url("../image/background.png") no-repeat;
+  background-size: cover;
 }
 
 @media (max-width: 991px) {

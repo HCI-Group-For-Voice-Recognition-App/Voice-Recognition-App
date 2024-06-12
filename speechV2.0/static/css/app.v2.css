@@ -4210,6 +4210,7 @@ a.list-group-item.active .list-group-item-text, a.list-group-item.active:hover .
 }
 .panel-success {
 	border-color:#d6e9c6;
+	backdrop-filter: blur(10px);
 }
 .panel-success>.panel-heading {
 	color:#468847;
@@ -4261,6 +4262,7 @@ a.list-group-item.active .list-group-item-text, a.list-group-item.active:hover .
 }
 .panel-info {
 	border-color:#bce8f1;
+	backdrop-filter: blur(10px);
 }
 .panel-info>.panel-heading {
 	color:#3a87ad;
