@@ -23,7 +23,6 @@ def beginRecorder():
     try:
         begin = time.time()
         register.train_model(printName)
-        # speechRecorder.run()
         duration = time.time() - begin
         return jsonify({"status": "成功", "duration": duration}), 200
     except Exception as e:

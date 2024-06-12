@@ -40,12 +40,7 @@ $(document).ready(function () {
     /* ---------------------------------------------
         scroll body to 0px on click
      --------------------------------------------- */
-    $('#back-top a').on("click", function () {
-        $('body,html').animate({
-            scrollTop: 0
-        }, 1000);
-        return false;
-    });
+  
 
 
     //  Counter Js 
@@ -132,9 +127,23 @@ $(document).ready(function () {
             }
         }
     });
+    // 回到顶部
+    $(window).scroll(function() {		
+        if($(window).scrollTop() >= 100){
+            $('.actGotop').fadeIn(300); 
+        }else{    
+            $('.actGotop').fadeOut(300);    
+        }  
+    });
+    $('.actGotop').click(function(){
+    $('html,body').animate({scrollTop: '0px'}, 800);});	
 
-
-
+    $('#back-top a').on("click", function () {
+        $('body,html').animate({
+            scrollTop: 0
+        }, 1000);
+        return false;
+    });
 
     // Header scroll class
     $(window).scroll(function () {
