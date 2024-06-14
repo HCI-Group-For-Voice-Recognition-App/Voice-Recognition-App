@@ -313,7 +313,7 @@ function synthesize(text) {
 function countText() {
     var str = $("#inputTexts").val();
     console.log(str)
-    var curText = str.length;
+    var curText = str ? str.length : 0;
     if (curText > 200) {
         $("#wordCurrent").addClass("beyond");
     } else {
