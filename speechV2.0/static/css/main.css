@@ -2424,7 +2424,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .home-banner-area {
-  background: url(../image/header-bg.png) no-repeat top center;
+  background: rgba(0,0,0,0.5)url(../image/header-bg.png) no-repeat top center;
   background-size: cover;
 }
 
@@ -2730,6 +2730,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .feature-area {
   padding: 10px 0 120px;
+  background:url("../image/background.png") no-repeat;
+  background-size: cover;
 }
 
 @media (max-width: 991px) {

@@ -58,7 +58,7 @@
   .language-image-box .taste-content {
     display: flex;
     align-items: center;
-    margin-bottom: 60px;
+    margin-bottom: 15px;
   }
   .language-image-box .taste-content .ready-button {
     margin: 0 auto;
@@ -169,7 +169,7 @@
     font-size: 14px;
     border-radius: 4px;
     cursor: pointer;
-    width: 140px;
+    width: 100px;
     height: 36px;
     background-color: #0081FF;
     display: flex;
