@@ -502,7 +502,7 @@
 						return;
 					},
 					beforeSend: function (XMLHttpRequest) {
-						layer.msg('开始录音(点击停止)…… (' + countTime + '秒)', {
+						layer.msg('开始录音(点击退出)…… (' + countTime + '秒)', {
 							icon: 16,
 							shade: 0.01,
                             time: false // 防止layer自动关闭
@@ -512,7 +512,7 @@
                         countInterval = setInterval(function() {
                     countTime++;
                     // 更新提示信息中的倒计时
-                    layer.msg('开始录音(点击停止)…… (' + countTime + '秒)', {
+                    layer.msg('开始录音(点击退出)…… (' + countTime + '秒)', {
                         icon: 16,
                         shade: 0.01,
                         time: false // 防止layer自动关闭
@@ -541,10 +541,16 @@
 
 					},
 					success: function (res) {
+                        stop=0;
+						clearInterval(countInterval);
+						layer.close(msgIndex); // 关闭提示层
+
+						// 停止录音逻辑
+						stopRecording();
+
 						layer.msg('正在识别……', {
 							icon: 16,
 							shade: 0.01,
-                            time: false // 防止layer自动关闭
 						});
 						// $(".text-white").css('display','block');
 						// $("#ASR-Reslut").css('display','block'); 
