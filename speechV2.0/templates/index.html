@@ -492,6 +492,7 @@
             var countTime = 0; // 正计时
             var countInterval;
             var msgIndex;
+            var stop=1;
 			$.ajax(
 				{
 					type: "POST",
@@ -518,7 +519,8 @@
                     });
 
                     $(document).on('click', function() {
-                        // 倒计时结束，停止录音
+                        if(stop===1){
+                             // 倒计时结束，停止录音
                        clearInterval(countInterval);
                         layer.close(msgIndex); // 关闭提示层
 
@@ -531,6 +533,9 @@
                             shade: 0.01,
                             time: 2000 // 2秒后自动关闭
                         });
+                        stop=0;
+                        }
+
                     });
                 }, 1000);
 
