@@ -13,10 +13,10 @@ Toast.toast = function(msg) {
     document.body.appendChild(div)
     div.offsetHeight
     div.classList.add(active)
-    setTimeout(function() {
-        // div.classList.remove(active)
-        $(".toast-container").remove();
-    }, 1500)
+    // setTimeout(function() {
+    //     // div.classList.remove(active)
+    //     $(".toast-container").remove();
+    // }, 1500)
 }
 Toast.toastfor1 = function(msg,data) {
     var active = "toast-active";
