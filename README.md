@@ -38,6 +38,8 @@ Open the extracted root directory folder in the compiler, configure the Python e
 
 The project webpage supports display in various browsers such as Lenovo Browser, Microsoft Edge, and Google Chrome.
 
+Do not use a VPN when running programs and opening web pages
+
 
 
 Author: ZhongKai Wang, HaoJun Feng, YiJia Luo.
