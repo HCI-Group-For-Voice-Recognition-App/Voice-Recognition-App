@@ -59,11 +59,17 @@
 	<!-- Start Banner Area -->
 	<section class="home-banner-area relative" style="height: 350px">
 		<div class="container">
-			<div style="height: 520px;width: 100%;display: flex;flex-direction: row;align-items: center;justify-content: center;">
+			<div
+				style="height: 520px;width: 100%;display: flex;flex-direction: row;align-items: center;justify-content: center;">
 				<div class="banner-content col-lg-8 col-md-12">
-					<h1 class="wow fadeIn" data-wow-duration="4s">CASR-DEMO</h1>
+					<!-- <h1 class="wow fadeIn" data-wow-duration="4s">CASR-DEMO</h1>
 					<p class="text-white" style="font-size: 25px">
-						中文智能语音识别体验中心
+						智能语音识别DEMO
+					</p> -->
+					<h1 class="wow fadeIn" data-wow-duration="4s" style="font-size: 55px !important;">智能语音识别DEMO</h1>
+					<br>
+					<p class="text-white" style="font-size: 25px">
+						包含语音识别、声纹注册、说话人识别三大服务。
 					</p>
 				</div>
 			</div>
@@ -74,10 +80,10 @@
 			<div class="row justify-content-center">
 				<div class="col-lg-8">
 					<div class="section-title text-center">
-						<h1>中文智能语音识别体验中心</h1>
+						<!-- <h1>中文智能语音识别体验中心</h1>
 						<p>
 							包含语音识别和声纹识别两大服务。
-						</p>
+						</p> -->
 					</div>
 				</div>
 			</div>
@@ -99,8 +105,7 @@
 											<div class="left-box">
 												<div class="language-label">
 													<div>类别：</div>
-													<div data-value="zh-CHS"
-														class="language-select language-span language-span-list">
+													<div data-value="zh-CHS" class="language-select language-span language-span-list">
 														中文普通话
 													</div>
 													<div data-value="en" class="language-span language-span-list">英文
@@ -125,14 +130,12 @@
 												</div>
 												<div class="language-image-box">
 													<div class="taste-content">
-														<button id="record" class="taste-button ready-button"><b
-																id="record_status"
+														<button id="record" class="taste-button ready-button"><b id="record_status"
 																style="background-image: url('../static/image/ic_microphone_24px.png');"></b><span
 																id="record_text">录 音</span></button>
 
 
-														<span id="time"
-															style="width: 20px;display: inline-block"></span>
+														<span id="time" style="width: 20px;display: inline-block"></span>
 
 													</div>
 													<div class="language-p">
@@ -147,11 +150,9 @@
 										<div class="right">
 											<div class="title">识别结果</div>
 											<div class="right-box">
-												<div id="inputText" class="text" dir="ltr" tabindex="1" wrap="SOFT"
-													name="i">欢迎体验语音识别功能。</div>
+												<div id="inputText" class="text" dir="ltr" tabindex="1" wrap="SOFT" name="i">欢迎体验语音识别功能。</div>
 												<div class="btn-bottom">
-													<audio id="audioPlayer" class="asr_demo_audio" autoplay
-														controls></audio>
+													<audio id="audioPlayer" class="asr_demo_audio" autoplay controls></audio>
 												</div>
 											</div>
 										</div>
@@ -173,22 +174,18 @@
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-lg-6">
-                                    <br>
 									<h4>1、声纹注册</h4>
 									<p class="lead">输入姓名后点击开始注册声纹按钮并通过录制声音且不要低于10S</p>
 									<div class="input-group">
 										<input type="text" class="form-control" id="printName" placeholder="请填写注册人名字">
 									</div>
 									<br>
-									<button type="button" class="btn btn-info"
-										onclick="speechRecorder()">开始注册声纹</button>
-                                    <br>
-                                    <br>
-                                    <br>
+									<button type="button" class="btn btn-info" onclick="speechRecorder()">开始注册声纹</button>
+									<br>
+									<br>
 									<h4>2、声纹识别</h4>
 									<p class="lead">个人录音后与声纹库中进行比对后返回识别结果。</p>
-									<button type="button" class="btn btn-success"
-										onclick="recognizeSpeech()">说话人识别</button>
+									<button type="button" class="btn btn-success" onclick="recognizeSpeech()">说话人识别</button>
 									<p class="lead">请点击识别按钮后开始录制语音，时长10S左右。</p>
 
 								</div><!-- /.col-lg-6 -->
@@ -206,15 +203,17 @@
 		</div>
 	</section>
 	<!-- Start Footer Area -->
-	<!-- <footer class="footer-area section-gap">
+	<footer class="footer-area section-gap">
 		<div class="container">
 			<div class="footer-bottom row align-items-center">
 				<p class="footer-text m-0 col-lg-5 col-md-5">
-					Copyright &copy; 2019.CCIP Lab All rights reserved.<a target="_blank" href="#"></a>
+					Author：王中凯 罗奕佳 冯浩军
+					<br>
+					Date：2024.6
 				</p>
 			</div>
 		</div>
-	</footer> -->
+	</footer>
 	<!-- End Footer Area -->
 	<!-- ####################### Start Scroll to Top Area ####################### -->
 	<!-- <div id="back-top">
@@ -270,7 +269,7 @@
 		audio = document.querySelector('audio');
 
 
-		var isStart = true, time = 60, timer;
+		var isStart = true, time = 0, timer;
 
 
 		$('.actGotop').click(function () {
@@ -280,9 +279,14 @@
 		//倒计时
 		function updateTimer() {
 			// $('#record_text').text("结束" + (--time) + "s");
-			$('#usedTime').text(--time);
+			let myTime = time + 1;
+			if (myTime >= 59) {
+				return;
+			}
+			time++;
+			$('#usedTime').text(myTime);
 
-			if ((time) == 0) {
+			if ((myTime) == 59) {
 				elButton.click();
 			}
 		}
@@ -300,13 +304,13 @@
 			} else {
 				$('#record_status').css("background", "url(../static/image/ic_stop_24px.png)");
 				$('#record_text').text("结束");
-				$('#usedTime').text('60');
+				$('#usedTime').text('0');
 
 			}
 		}
 		elButton.onclick = function () {
 			if (isStart) {
-				time = 60;
+				time = 0;
 				//开始录音
 				updateButton();
 				timer = setInterval(updateTimer, 1000);
@@ -363,14 +367,28 @@
 							$("#inputText").html("");
 							$("#inputText").html(result.result);
 							$("#inputText").css("color", "#222");
-						} else if (result.errorCode == 411) {
-							Toast.toast("您的访问过于频繁，请稍后访问");
+						} else if (result.errorCode == 411 || result.errorCode == 410) {
+							layer.msg('您的访问过于频繁，请稍后访问', {
+								icon: 2,
+								shade: 0.01,
+								time: 2000 // 2秒后自动关闭
+							});
+							// Toast.toast("您的访问过于频繁，请稍后访问");
 						} else if (result.errorCode == 413) {
+							layer.msg('您今日的访问已达到上限', {
+								icon: 2,
+								shade: 0.01,
+								time: 2000 // 2秒后自动关闭
+							});
 							Toast.toast("您今日的访问已达到上限");
-						} else if (result.errorCode == 410) {
-							Toast.toast("您的访问过于频繁，请稍后访问");
 						} else {
-							Toast.toast("语音识别失败")
+							// 在倒计时结束后执行成功逻辑
+							layer.msg('语音识别失败', {
+								icon: 2,
+								shade: 0.01,
+								time: 2000 // 2秒后自动关闭
+							});
+							// Toast.toast("语音识别失败")
 						}
 					},
 					error: function (error) {
@@ -383,116 +401,116 @@
 
 		// 注册声纹
 		function speechRecorder() {
-            var printName = get("printName").value;
-            if (!printName) {
-                alert("请先输入注册人的名字");
-                return;
-            }
-            console.log("开始注册……")
-            alert("注意！录音时长请不要低于10秒！")
+			var printName = get("printName").value;
+			if (!printName) {
+				alert("请先输入注册人的名字");
+				return;
+			}
+			console.log("开始注册……")
+			alert("注意！录音时长为12秒！")
 
-            var countdownTime = 12; // 倒计时12秒
-            var countdownInterval;
-            var msgIndex;
+			var countdownTime = 12; // 倒计时12秒
+			var countdownInterval;
+			var msgIndex;
 
-            $.ajax(
-                {
-                    type: "POST",
-                    url: "/speech",
-                    data: "printNames=" + printName,
-                    dataType: "json",
-                    error: function (request) {
-                        return;
-                    },
-                    beforeSend: function (XMLHttpRequest) {
-                        $(".text-white").css('display', 'none');
-                        $("#ASR-Reslut").css('display', 'none');
-                        layer.msg('录音中…… (' + countdownTime + '秒)', {
-                            icon: 16,
-                            shade: 0.01,
-                            time: false // 防止layer自动关闭
-                        });
-                        // 启动倒计时
-                        countdownInterval = setInterval(function () {
-                            countdownTime--;
-                            // 更新提示信息中的倒计时
-                            layer.msg('录音中…… (' + countdownTime + '秒)', {
-                                icon: 16,
-                                shade: 0.01,
-                                time: false // 防止layer自动关闭
-                            });
+			$.ajax(
+				{
+					type: "POST",
+					url: "/speech",
+					data: "printNames=" + printName,
+					dataType: "json",
+					error: function (request) {
+						return;
+					},
+					beforeSend: function (XMLHttpRequest) {
+						$(".text-white").css('display', 'none');
+						$("#ASR-Reslut").css('display', 'none');
+						layer.msg('录音中…… (' + countdownTime + '秒)', {
+							icon: 16,
+							shade: 0.01,
+							time: false // 防止layer自动关闭
+						});
+						// 启动倒计时
+						countdownInterval = setInterval(function () {
+							countdownTime--;
+							// 更新提示信息中的倒计时
+							layer.msg('录音中…… (' + countdownTime + '秒)', {
+								icon: 16,
+								shade: 0.01,
+								time: false // 防止layer自动关闭
+							});
 
-                            if (countdownTime <= 0) {
-                                // 倒计时结束，停止录音
-                                clearInterval(countdownInterval);
-                                layer.close(msgIndex); // 关闭提示层
+							if (countdownTime <= 0) {
+								// 倒计时结束，停止录音
+								clearInterval(countdownInterval);
+								layer.close(msgIndex); // 关闭提示层
 
-                                // 停止录音逻辑
-                                stopRecording();
+								// 停止录音逻辑
+								stopRecording();
 
-                                // 在倒计时结束后执行成功逻辑
-                                layer.msg('录音结束', {
-                                    icon: 1,
-                                    shade: 0.01,
-                                    time: 2000 // 2秒后自动关闭
-                                });
-                            }
-                        }, 1000);
-                    },
-                    success: function (res) {
-                        printName = '';
+								// 在倒计时结束后执行成功逻辑
+								layer.msg('录音结束', {
+									icon: 1,
+									shade: 0.01,
+									time: 2000 // 2秒后自动关闭
+								});
+							}
+						}, 1000);
+					},
+					success: function (res) {
+						printName = '';
 
-                        // 此处的逻辑将在录音完成后处理
-                        setTimeout(function () {
-                            layer.closeAll('loading');
-                        }, 1000);
-                        return;
-                    }
-                });
+						// 此处的逻辑将在录音完成后处理
+						setTimeout(function () {
+							layer.closeAll('loading');
+						}, 1000);
+						return;
+					}
+				});
 
-            // 定义停止录音的逻辑
-            function stopRecording() {
-                $.ajax(
-                    {
-                        type: "POST",
-                        url: "/stopSpeech",
-                        error: function (request) {
-                            return;
-                        },
-                        beforeSend: function (XMLHttpRequest) {
-                            console.log("录音已停止");
-                            // 关闭提示层
-                            if (msgIndex !== undefined) {
-                                layer.close(msgIndex);
-                            }
-                        },
-                        success: function (res) {
-                            //此处演示关闭
-                            setTimeout(function () {
-                                layer.closeAll('loading');
-                            }, 1000);
-                            // 显示录音结束提示
-                            layer.msg('录音结束', {
-                                icon: 1,
-                                shade: 0.01,
-                                time: 2000 // 2秒后自动关闭
-                            });
-                        }
-                    })
+			// 定义停止录音的逻辑
+			function stopRecording() {
+				$.ajax(
+					{
+						type: "POST",
+						url: "/stopSpeech",
+						error: function (request) {
+							return;
+						},
+						beforeSend: function (XMLHttpRequest) {
+							console.log("录音已停止");
+							// 关闭提示层
+							if (msgIndex !== undefined) {
+								layer.close(msgIndex);
+							}
+						},
+						success: function (res) {
+							//此处演示关闭
+							setTimeout(function () {
+								layer.closeAll('loading');
+							}, 1000);
+							// 显示录音结束提示
+							layer.msg('录音结束', {
+								icon: 1,
+								shade: 0.01,
+								time: 2000 // 2秒后自动关闭
+							});
+						}
+					})
 
 
-            }
-        }
+			}
+		}
 
 
 
 
 		function recognizeSpeech() {
 			alert("请录制语音5~10s左右！")
-            var countTime = 0; // 正计时
-            var countInterval;
-            var msgIndex;
-            var stop=1;
+			var countTime = 0; // 正计时
+			var countInterval;
+			var msgIndex;
+			var stop = 1;
 			$.ajax(
 				{
 					type: "POST",
@@ -505,43 +523,43 @@
 						layer.msg('开始录音(点击退出)…… (' + countTime + '秒)', {
 							icon: 16,
 							shade: 0.01,
-                            time: false // 防止layer自动关闭
+							time: false // 防止layer自动关闭
 						});
 
-                         // 启动计时
-                        countInterval = setInterval(function() {
-                    countTime++;
-                    // 更新提示信息中的倒计时
-                    layer.msg('开始录音(点击退出)…… (' + countTime + '秒)', {
-                        icon: 16,
-                        shade: 0.01,
-                        time: false // 防止layer自动关闭
-                    });
+						// 启动计时
+						countInterval = setInterval(function () {
+							countTime++;
+							// 更新提示信息中的倒计时
+							layer.msg('开始录音(点击退出)…… (' + countTime + '秒)', {
+								icon: 16,
+								shade: 0.01,
+								time: false // 防止layer自动关闭
+							});
 
-                    $(document).on('click', function() {
-                        if(stop===1){
-                             // 倒计时结束，停止录音
-                       clearInterval(countInterval);
-                        layer.close(msgIndex); // 关闭提示层
+							$(document).on('click', function () {
+								if (stop === 1) {
+									// 倒计时结束，停止录音
+									clearInterval(countInterval);
+									layer.close(msgIndex); // 关闭提示层
 
-                        // 停止录音逻辑
-                        stopRecording();
+									// 停止录音逻辑
+									stopRecording();
 
-                        // 在倒计时结束后执行成功逻辑
-                        layer.msg('录音结束', {
-                            icon: 1,
-                            shade: 0.01,
-                            time: 2000 // 2秒后自动关闭
-                        });
-                        stop=0;
-                        }
+									// 在倒计时结束后执行成功逻辑
+									layer.msg('录音结束', {
+										icon: 1,
+										shade: 0.01,
+										time: 2000 // 2秒后自动关闭
+									});
+									stop = 0;
+								}
 
-                    });
-                }, 1000);
+							});
+						}, 1000);
 
 					},
 					success: function (res) {
-                        stop=0;
+						stop = 0;
 						clearInterval(countInterval);
 						layer.close(msgIndex); // 关闭提示层
 
@@ -557,40 +575,40 @@
 						// var resId = document.getElementById("ASR-Reslut");
 						// $("#ASR-Reslut").text(res)
 						// console.log(res)
-						$("#recogName").text("识别成功！您是： " + res)
+						$("#recogName").hide().html("识别成功！结果是 : <br>" + res.replace(/\n/g, '<br>')).fadeIn(1000);
 					}
 				});
-            function stopRecording() {
-                $.ajax(
-                    {
-                        type: "POST",
-                        url: "/stopSpeech",
-                        error: function (request) {
-                            return;
-                        },
-                        beforeSend: function (XMLHttpRequest) {
-                            console.log("录音已停止");
-                            // 关闭提示层
-                            if (msgIndex !== undefined) {
-                                layer.close(msgIndex);
-                            }
-                        },
-                        success: function (res) {
-                            //此处演示关闭
-                            setTimeout(function () {
-                                layer.closeAll('loading');
-                            }, 1000);
-                            // 显示录音结束提示
-                            layer.msg('录音结束', {
-                                icon: 1,
-                                shade: 0.01,
-                                time: 2000 // 2秒后自动关闭
-                            });
-                        }
-                    })
+			function stopRecording() {
+				$.ajax(
+					{
+						type: "POST",
+						url: "/stopSpeech",
+						error: function (request) {
+							return;
+						},
+						beforeSend: function (XMLHttpRequest) {
+							console.log("录音已停止");
+							// 关闭提示层
+							if (msgIndex !== undefined) {
+								layer.close(msgIndex);
+							}
+						},
+						success: function (res) {
+							//此处演示关闭
+							setTimeout(function () {
+								layer.closeAll('loading');
+							}, 1000);
+							// 显示录音结束提示
+							layer.msg('录音结束', {
+								icon: 1,
+								shade: 0.01,
+								time: 2000 // 2秒后自动关闭
+							});
+						}
+					})
 
 
-            }
+			}
 		}
 	</script>
 	<style>
@@ -608,20 +626,9 @@
 			background-size: 90px 117px !important;
 			display: none;
 		}
-/* /speechV2.0/static/image/blog7year_gotop.png */
-		.actGotop a,
-		.actGotop a:link {
-			width: 150px;
-			height: 195px;
-			background-size: 90px 117px !important;
-			display: inline-block;
-			background: url(/speechV2.0/static/image/blog7year_gotop.png) no-repeat;
-			_background: url(/speechV2.0/static/image/blog7year_gotop.gif) no-repeat;
-			outline: none;
-		}
 
 		.actGotop a:hover {
-			background: url(/speechV2.0/static/image/blog7year_gotopd.gif) no-repeat;
+			background: url(../static/image/blog7year_gotopd.gif) no-repeat !important;
 			outline: none;
 		}
 	</style>

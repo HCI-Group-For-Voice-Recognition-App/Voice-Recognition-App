@@ -898,6 +898,8 @@ th {
   display: inline-block;
   background: url(../image/blog7year_gotop.png) no-repeat;
   _background: url(../image/blog7year_gotop.gif) no-repeat;
+  background-size: 75%;
+  _background-size: 75%;
   outline: none;
 }
 
@@ -2424,7 +2426,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .home-banner-area {
-  background: rgba(0,0,0,0.5)url(../image/header-bg.png) no-repeat top center;
+  background: rgba(0, 0, 0, 0.5)url(../image/header-bg.png) no-repeat top center;
   background-size: cover;
 }
 
@@ -2730,7 +2732,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .feature-area {
   padding: 10px 0 120px;
-  background:url("../image/background.png") no-repeat;
+  background: url("../image/background.png") no-repeat;
   background-size: cover;
 }
 
@@ -3973,10 +3975,6 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .footer-area .single-footer-widget .click-btn span {
   font-weight: 500;
-}
-
-.footer-area .footer-bottom {
-  margin-top: 90px;
 }
 
 @media (max-width: 991px) {
